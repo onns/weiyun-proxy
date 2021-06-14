@@ -7,6 +7,8 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"path"
+	"path/filepath"
 )
 
 type GlobalConfig struct {
@@ -18,7 +20,12 @@ type GlobalConfig struct {
 var OnnsGlobal GlobalConfig
 
 func loadConfig() {
-	filename := "config.json"
+	ex, err := os.Executable()
+	if err != nil {
+		panic(err)
+	}
+	exPath := filepath.Dir(ex)
+	filename := path.Join(exPath, "config.json")
 	if _, err := os.Stat(filename); err != nil {
 		panic(err)
 	}

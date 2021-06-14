@@ -74,6 +74,12 @@ func joinURLPath(a, b *url.URL) (path, rawpath string) {
 
 // go sdk 源码
 func singleJoiningSlash(a, b string) string {
+	if a == "/" {
+		return b
+	}
+	if b == "/" {
+		return a
+	}
 	aslash := strings.HasSuffix(a, "/")
 	bslash := strings.HasPrefix(b, "/")
 	switch {
